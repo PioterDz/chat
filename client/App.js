@@ -13,13 +13,21 @@ const socket = io('/');
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {users: [], messages: [], text: '', name: ''};
+        this.state = {users: [], messages: [], text: '', name: '', time: ''};
     }
 
     componentDidMount() {
         socket.on('message', message => this.messageReceive(message));
         socket.on('update', ({users}) => this.chatUpdate(users));
     }
+
+    componentWillUpdate() {
+        this.setState({time: new Date().toLocaleTimeString()});
+    }
+
+    // getTime() {
+    //     this.setState({time: new Date().toLocaleTimeString()});
+    // }
 
     messageReceive(message) {
         const messages = [message, ...this.state.messages];
@@ -64,7 +72,7 @@ class App extends Component {
                     />
                     <div className={styles.MessageWrapper}>
                         <MessageList
-                        messages={this.state.messages}
+                        messages={this.state.messages} time={this.state.time}
                         />
                         <MessageForm
                         onMessageSubmit={message => this.handleMessageSubmit(message)}

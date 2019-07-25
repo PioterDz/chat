@@ -6,7 +6,7 @@ const Message = props => (
     <div className={styles.Message}>
         <strong>{props.from} :</strong>
         <span>{props.text}</span>
-        <p>{props.time}</p>
+        {/* <p>{props.time}</p> */}
 
     </div>
 );
@@ -20,7 +20,7 @@ const MessageList = props => (
                 key={i}
                 from={message.from}
                 text={message.text}
-                time={props.time}
+                // time={message.date}
                 />
             );
             })

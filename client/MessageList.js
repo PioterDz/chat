@@ -2,14 +2,6 @@ import React from 'react';
 
 import styles from './MessageList.css';
 
-const Message = props => (
-    <div className={styles.Message}>
-        <strong>{props.from} :</strong>
-        <span>{props.text}</span>
-        {/* <p>{props.time}</p> */}
-
-    </div>
-);
 
 const MessageList = props => (
     <div className={styles.MessageList}>
@@ -20,11 +12,27 @@ const MessageList = props => (
                 key={i}
                 from={message.from}
                 text={message.text}
-                // time={message.date}
+                time={message.date}
+                clickDel={props.deleteMsg}
+                id={i}
+                name={props.name}
                 />
             );
             })
         }
+    </div>
+);
+
+const Message = props => (
+    <div className={styles.Message}>
+        <div className={styles.TextContent}>
+            <strong>{props.from} :</strong>
+            <span>{props.text}</span>
+        </div>
+        <div className={styles.TextInfo}>
+            <p>{props.time}</p>
+            <span id={props.id} from={props.from} name={props.name} className={styles.DeleteButton} onClick={props.clickDel}>X</span>
+        </div>
     </div>
 );
 

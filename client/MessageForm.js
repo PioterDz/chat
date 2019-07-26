@@ -5,7 +5,8 @@ class MessageForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: ''
+            text: '',
+            date: ''
         };
     }
 
@@ -14,15 +15,31 @@ class MessageForm extends Component {
         const message = {
         from : this.props.name,
         text : this.state.text,
-        // date: new Date().toLocaleTimeString()
+        date: this.state.date
         };
         this.props.onMessageSubmit(message);
-        this.setState({ text: '' });
-        console.log(message, 'handleSubmit');
+        this.setState({ text: '', date: '' });
     }
 
     changeHandler(e) {
-        this.setState({ text : e.target.value });
+
+        function addZero(i) {
+            if (i < 10) {
+              i = "0" + i;
+            }
+            return i;
+        }
+
+        const now = new Date();
+        const hours = addZero(now.getHours());
+        const minutes = addZero(now.getMinutes());
+        const seconds = addZero(now.getSeconds());
+        const time = hours + ":" + minutes + ":" + seconds;
+
+        this.setState({ 
+            text : e.target.value,
+            date: time
+        });
     }
 
     render() {

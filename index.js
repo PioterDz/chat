@@ -42,7 +42,8 @@ io.on('connection', (socket) => {
 
         socket.broadcast.emit('message', {
             text: message.text,
-            from: name
+            from: name,
+            date: message.date
         });
     });
 });

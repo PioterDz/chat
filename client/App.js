@@ -14,6 +14,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {users: [], messages: [], text: '', name: ''};
+        this.deleteMessage = this.deleteMessage.bind(this);
     }
 
     componentDidMount() {
@@ -34,12 +35,25 @@ class App extends Component {
     handleMessageSubmit(message) {
         const messages = [message, ...this.state.messages];
         this.setState({messages});
+        console.log(this.state.messages, 'msg state');
         socket.emit('message', message);
     }
 
     handleUserSubmit(name) {
         this.setState({name});
         socket.emit('join', name);
+    }
+
+    deleteMessage(e) {
+        const msgId = e.target.id;
+        const userNick = e.target.from;
+        const checkUser = e.target.name;
+        console.log(userNick, checkUser, 'check del');
+        if(userNick === checkUser) {
+            const actuallMessages = this.state.messages;
+            actuallMessages.splice(msgId, 1);
+            this.setState({messages: actuallMessages});
+        }
     }
 
     render() {
@@ -49,6 +63,7 @@ class App extends Component {
     }
     
     renderLayout() {
+        console.log(this.state, 'STATE');
         return (
             <div className={styles.App}>
                 <div className={styles.AppHeader}>
@@ -66,6 +81,8 @@ class App extends Component {
                     <div className={styles.MessageWrapper}>
                         <MessageList
                         messages={this.state.messages}
+                        deleteMsg={this.deleteMessage}
+                        name={this.state.name}
                         />
                         <MessageForm
                         onMessageSubmit={message => this.handleMessageSubmit(message)}

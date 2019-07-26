@@ -7,7 +7,32 @@
     padding: 20px;
 }
 
-.Message > p {
-    float: right;
-    margin: 0 50px 0 0;
+.Message {
+    display: flex;
+    justify-content: space-between;
 }
+
+.Message > .TextInfo {
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.Message > .TextInfo > .DeleteButton, p {
+    color: grey;
+}
+
+.Message > .TextInfo > .DeleteButton {
+    font-family: sans-serif;
+}
+
+.Message > .TextInfo > .DeleteButton:hover {
+    cursor: pointer;
+    color: red;
+}
+
+.Message > .TextInfo > p {
+    margin: 0 30px 0 0;
+    font-family: monospace;
+}
+

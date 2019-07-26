@@ -15,7 +15,6 @@ const MessageList = props => (
                 time={message.date}
                 clickDel={props.deleteMsg}
                 id={i}
-                name={props.name}
                 />
             );
             })
@@ -31,7 +30,7 @@ const Message = props => (
         </div>
         <div className={styles.TextInfo}>
             <p>{props.time}</p>
-            <span id={props.id} from={props.from} name={props.name} className={styles.DeleteButton} onClick={props.clickDel}>X</span>
+            <span id={props.id} from={props.from} className={styles.DeleteButton} onClick={props.clickDel}>X</span>
         </div>
     </div>
 );

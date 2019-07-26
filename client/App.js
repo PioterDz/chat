@@ -47,7 +47,7 @@ class App extends Component {
     deleteMessage(e) {
         const msgId = e.target.id;
         const userNick = e.target.from;
-        const checkUser = e.target.name;
+        const checkUser = this.state.name;
         console.log(userNick, checkUser, 'check del');
         if(userNick === checkUser) {
             const actuallMessages = this.state.messages;
@@ -82,7 +82,6 @@ class App extends Component {
                         <MessageList
                         messages={this.state.messages}
                         deleteMsg={this.deleteMessage}
-                        name={this.state.name}
                         />
                         <MessageForm
                         onMessageSubmit={message => this.handleMessageSubmit(message)}

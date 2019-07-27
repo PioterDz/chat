@@ -20,22 +20,25 @@ class App extends Component {
     componentDidMount() {
         socket.on('message', message => this.messageReceive(message));
         socket.on('update', ({users}) => this.chatUpdate(users));
+        socket.on('deletemsg', ({messages}) => this.updateAfterDelete({messages}))
     }
 
     messageReceive(message) {
         const messages = [message, ...this.state.messages];
         this.setState({messages});
-        console.log(this.state.messages, 'msg receive');
     }
 
     chatUpdate(users) {
         this.setState({users});
     }
 
+    updateAfterDelete({messages}) {
+        this.setState({messages});
+    }
+
     handleMessageSubmit(message) {
         const messages = [message, ...this.state.messages];
         this.setState({messages});
-        console.log(this.state.messages, 'msg state');
         socket.emit('message', message);
     }
 
@@ -44,15 +47,15 @@ class App extends Component {
         socket.emit('join', name);
     }
 
-    deleteMessage(e) {
-        const msgId = e.target.id;
-        const userNick = e.target.from;
+    deleteMessage(id, from) {
+        const msgId = id;
+        const userNick = from;
         const checkUser = this.state.name;
-        console.log(userNick, checkUser, 'check del');
         if(userNick === checkUser) {
-            const actuallMessages = this.state.messages;
-            actuallMessages.splice(msgId, 1);
-            this.setState({messages: actuallMessages});
+            const messages = this.state.messages;
+            messages.splice(msgId, 1);
+            this.setState({messages});
+            socket.emit('delete', {messages});
         }
     }
 
@@ -63,7 +66,7 @@ class App extends Component {
     }
     
     renderLayout() {
-        console.log(this.state, 'STATE');
+
         return (
             <div className={styles.App}>
                 <div className={styles.AppHeader}>
@@ -82,6 +85,7 @@ class App extends Component {
                         <MessageList
                         messages={this.state.messages}
                         deleteMsg={this.deleteMessage}
+                        name={this.state.name}
                         />
                         <MessageForm
                         onMessageSubmit={message => this.handleMessageSubmit(message)}

@@ -13,9 +13,9 @@ class MessageForm extends Component {
     handleSubmit(e) {
         e.preventDefault();
         const message = {
-        from : this.props.name,
-        text : this.state.text,
-        date: this.state.date
+            from : this.props.name,
+            text : this.state.text,
+            date: this.state.date
         };
         this.props.onMessageSubmit(message);
         this.setState({ text: '', date: '' });

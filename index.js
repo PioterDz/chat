@@ -22,7 +22,7 @@ io.on('connection', (socket) => {
         name
         });
         io.emit('update', {
-        users: usersService.getAllUsers()
+            users: usersService.getAllUsers()
         });
     });
 });
@@ -45,6 +45,14 @@ io.on('connection', (socket) => {
             from: name,
             date: message.date
         });
+    });
+});
+
+io.on('connection', (socket) => {
+    socket.on('delete', ({messages}) => {
+
+        socket.broadcast.emit('deletemsg', {messages});
+
     });
 });
 

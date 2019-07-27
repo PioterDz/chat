@@ -26,6 +26,10 @@
     font-family: sans-serif;
 }
 
+.Message > .TextInfo > .NoDisplay {
+    visibility: hidden;
+}
+
 .Message > .TextInfo > .DeleteButton:hover {
     cursor: pointer;
     color: red;

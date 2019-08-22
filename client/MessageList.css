@@ -1,0 +1,42 @@
+.MessageList {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 75vw;
+    padding: 20px;
+}
+
+.Message {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Message > .TextInfo {
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.Message > .TextInfo > .DeleteButton, p {
+    color: grey;
+}
+
+.Message > .TextInfo > .DeleteButton {
+    font-family: sans-serif;
+}
+
+.Message > .TextInfo > .NoDisplay {
+    visibility: hidden;
+}
+
+.Message > .TextInfo > .DeleteButton:hover {
+    cursor: pointer;
+    color: red;
+}
+
+.Message > .TextInfo > p {
+    margin: 0 30px 0 0;
+    font-family: monospace;
+}
+
